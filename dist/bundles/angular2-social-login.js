@@ -21,20 +21,19 @@ var AuthService = /** @class */ (function () {
                     if (typeof (_this.gauth) == "undefined") {
                         _this.gauth = gapi.auth2.getAuthInstance();
                     }
-                    if (!_this.gauth.isSignedIn.get()) {
-                        _this.gauth.signIn({
-                            prompt: 'select_account'
-                        }).then(function () {
-                            localStorage.setItem('_login_provider', 'google');
-                            observer.next(_this._fetchGoogleUserDetails());
-                            observer.complete();
-                        });
-                    }
-                    else {
+                    // if(!this.gauth.isSignedIn.get()){
+                    _this.gauth.signIn({
+                        prompt: 'select_account'
+                    }).then(function () {
                         localStorage.setItem('_login_provider', 'google');
                         observer.next(_this._fetchGoogleUserDetails());
                         observer.complete();
-                    }
+                    });
+                    // }else{
+                    //     localStorage.setItem('_login_provider', 'google');
+                    //     observer.next(this._fetchGoogleUserDetails());
+                    //     observer.complete();
+                    // }
                     break;
                 case "facebook":
                     FB.getLoginStatus(function (response) {
