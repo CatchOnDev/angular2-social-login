@@ -18,7 +18,9 @@ var AuthService = /** @class */ (function () {
                         _this.gauth = gapi.auth2.getAuthInstance();
                     }
                     if (!_this.gauth.isSignedIn.get()) {
-                        _this.gauth.signIn().then(function () {
+                        _this.gauth.signIn({
+                            prompt: 'select_account'
+                        }).then(function () {
                             localStorage.setItem('_login_provider', 'google');
                             observer.next(_this._fetchGoogleUserDetails());
                             observer.complete();
